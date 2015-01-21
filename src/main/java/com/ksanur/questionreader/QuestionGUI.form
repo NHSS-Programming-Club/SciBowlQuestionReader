@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.ksanur.questionreader.QuestionGUI">
+  <grid id="27dc6" binding="root" layout-manager="GridLayoutManager" row-count="8" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="158" y="20" width="584" height="418"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="be2b4" class="javax.swing.JCheckBox" binding="physicsCheckBox" default-binding="true">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Physics"/>
+        </properties>
+      </component>
+      <component id="901f" class="javax.swing.JCheckBox" binding="biologyCheckBox" default-binding="true">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Biology"/>
+        </properties>
+      </component>
+      <component id="2b1d" class="javax.swing.JCheckBox" binding="earthSpaceCheckBox" default-binding="true">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Earth/Space"/>
+        </properties>
+      </component>
+      <component id="27a48" class="javax.swing.JCheckBox" binding="mathCheckBox" default-binding="true">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Math"/>
+        </properties>
+      </component>
+      <component id="cfcdd" class="javax.swing.JCheckBox" binding="energyCheckBox" default-binding="true">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Energy"/>
+        </properties>
+      </component>
+      <component id="7589a" class="javax.swing.JCheckBox" binding="multipleChoiceCheckBox" default-binding="true">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Multiple Choice"/>
+        </properties>
+      </component>
+      <component id="ab469" class="javax.swing.JCheckBox" binding="shortAnswerCheckBox" default-binding="true">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Short Answer"/>
+        </properties>
+      </component>
+      <component id="9493a" class="javax.swing.JButton" binding="getQuestionButton" default-binding="true">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Get Question"/>
+        </properties>
+      </component>
+      <component id="d3ce5" class="javax.swing.JTextArea" binding="questionTextArea" default-binding="true">
+        <constraints>
+          <grid row="1" column="1" row-span="7" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <lineWrap value="true"/>
+          <text value="Question"/>
+          <wrapStyleWord value="true"/>
+        </properties>
+      </component>
+      <component id="4532d" class="javax.swing.JCheckBox" binding="chemistryCheckBox" default-binding="true">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Chemistry"/>
+        </properties>
+      </component>
+      <component id="79e23" class="javax.swing.JCheckBox" binding="generalCheckBox" default-binding="true">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="General"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
