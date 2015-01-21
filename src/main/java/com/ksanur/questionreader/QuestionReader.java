@@ -1,6 +1,5 @@
 package com.ksanur.questionreader;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
@@ -16,7 +15,10 @@ import org.jsoup.select.Elements;
 import javax.swing.*;
 import java.io.*;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -51,53 +53,20 @@ public class QuestionReader {
         //downloadPDFs("http://science.energy.gov/wdts/nsb/middle-school/middle-school-regionals/middle-school-resources/sample-questions/");
     }
 
-    private void loadQuestions() throws IOException {
-        String json = IOUtils.toString(getClass().getClassLoader().getResourceAsStream("questions.json"));
-
-        JSONObject obj = new JSONObject(json);
-        Iterator<?> keys = obj.keys();
-
-        while(keys.hasNext()){
-            String key = (String)keys.next();
-            if(obj.get(key) instanceof JSONArray){
-                JSONArray arr = obj.getJSONArray(key);
-
-                for(int i=0;i<arr.length();i++) {
-                    JSONObject question = arr.getJSONObject(i);
-                    Question q = new Question();
-                    q.setCategory(Question.Category.getCategory(key));
-                    q.setBonus(question.getBoolean("bonus"));
-                    q.setQuestion(question.getString("question"));
-                    q.setAnswer(question.getString("answer"));
-                    if(question.has("multiple_choice")) {
-                        q.setMultipleChoice(true);
-                        JSONArray mc = question.getJSONArray("multiple_choice");
-                        q.setW(mc.getString(0));
-                        q.setX(mc.getString(1));
-                        q.setY(mc.getString(2));
-                        q.setZ(mc.getString(3));
-                    }
-                    questions.add(q);
-                }
-            }
-        }
-
-    }
-
     private static void saveQuestionsToJSON() throws IOException {
         JSONObject obj = new JSONObject();
-        for(Question.Category cat: Question.Category.values()) {
-            obj.put(cat.getName(),new JSONArray());
+        for (Question.Category cat : Question.Category.values()) {
+            obj.put(cat.getName(), new JSONArray());
         }
 
-        for(Question q:questions) {
+        for (Question q : questions) {
             JSONObject question = new JSONObject();
-            question.put("question",q.getQuestion().trim());
-            if(q.isMultipleChoice()) {
+            question.put("question", q.getQuestion().trim());
+            if (q.isMultipleChoice()) {
                 question.put("multiple_choice", new JSONArray().put(q.getW()).put(q.getX()).put(q.getY()).put(q.getZ()));
             }
-            question.put("bonus",q.isBonus());
-            question.put("answer",q.getAnswer().trim());
+            question.put("bonus", q.isBonus());
+            question.put("answer", q.getAnswer().trim());
             obj.getJSONArray(q.getCategory().getName()).put(question);
         }
 
@@ -122,7 +91,7 @@ public class QuestionReader {
             File dir = new File("PDFs");
             dir.mkdirs();
 
-            for(File pdf:dir.listFiles(new PDFFilter())) {
+            for (File pdf : dir.listFiles(new PDFFilter())) {
                 /*QuestionExtractor extractor = new QuestionExtractor();
                 Vector<List<TextPosition>> texts = extractor.getContent(pdDocument);
                 for(List<TextPosition> text:texts) {
@@ -303,6 +272,115 @@ public class QuestionReader {
             return s.substring(0, width-1) + ".";
         else
             return s;
+    }
+
+    private void loadQuestions() throws IOException {
+        String json = IOUtils.toString(getClass().getClassLoader().getResourceAsStream("questions.json"));
+
+        JSONObject obj = new JSONObject(json);
+        Iterator<?> keys = obj.keys();
+
+
+        int gen = 0;
+        int bio = 0;
+        int ersc = 0;
+        int chem = 0;
+        int phys = 0;
+        int enrg = 0;
+        int math = 0;
+
+        int numSa = 0;
+        int numMc = 0;
+        int w = 0;
+        int x = 0;
+        int y = 0;
+        int z = 0;
+
+        while (keys.hasNext()) {
+            String key = (String) keys.next();
+            if (obj.get(key) instanceof JSONArray) {
+                JSONArray arr = obj.getJSONArray(key);
+
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject question = arr.getJSONObject(i);
+                    Question q = new Question();
+                    Question.Category cat = Question.Category.getCategory(key);
+                    q.setCategory(cat);
+
+                    switch (cat) {
+                        case GENERAL:
+                            gen++;
+                            break;
+                        case EARTH_SPACE:
+                            ersc++;
+                            break;
+                        case LIFE:
+                            bio++;
+                            break;
+                        case PHYSICAL:
+                            phys++;
+                            break;
+                        case MATH:
+                            math++;
+                            break;
+                        case CHEMISTRY:
+                            chem++;
+                            break;
+                        case ENERGY:
+                            enrg++;
+                            ;
+                            break;
+                    }
+
+                    q.setBonus(question.getBoolean("bonus"));
+                    q.setQuestion(question.getString("question"));
+                    q.setAnswer(question.getString("answer"));
+                    if (question.has("multiple_choice")) {
+                        q.setMultipleChoice(true);
+                        JSONArray mc = question.getJSONArray("multiple_choice");
+                        q.setW(mc.getString(0));
+                        q.setX(mc.getString(1));
+                        q.setY(mc.getString(2));
+                        q.setZ(mc.getString(3));
+
+                        String a = q.getAnswer().toLowerCase();
+                        if (a.contains("answer:"))
+                            a = a.split("answer:")[1].trim();
+                        if (a.startsWith("w")) {
+                            w++;
+                        } else if (a.startsWith("x")) {
+                            x++;
+                        } else if (a.startsWith("y")) {
+                            y++;
+                        } else if (a.startsWith("z")) {
+                            z++;
+                        }
+                        numMc++;
+                    } else {
+                        numSa++;
+                    }
+                    questions.add(q);
+                }
+            }
+        }
+
+
+        System.out.println("Math: " + math);
+        System.out.println("Physics: " + phys);
+        System.out.println("Biology: " + bio);
+        System.out.println("Chem: " + chem);
+        System.out.println("Energy: " + enrg);
+        System.out.println("Earth/Space: " + ersc);
+        System.out.println("General: " + gen);
+        System.out.println("------");
+        System.out.println("W:" + w);
+        System.out.println("X:" + x);
+        System.out.println("Y:" + y);
+        System.out.println("Z:" + z);
+        System.out.println("------");
+        System.out.println("Short Ans:" + numSa);
+        System.out.println("Multiple choice:" + numMc);
+
     }
 
     private static class PDFFilter implements FilenameFilter {

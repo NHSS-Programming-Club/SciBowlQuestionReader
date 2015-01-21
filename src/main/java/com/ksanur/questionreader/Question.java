@@ -84,11 +84,6 @@ public class Question {
         this.answer = answer;
     }
 
-    public enum AnswerType {
-        SHORT_ANSWER,
-        MULTIPLE_CHOICE
-    }
-
     public enum Category {
         GENERAL("General Science"),
         EARTH_SPACE("Earth and Space Science"),
@@ -103,16 +98,16 @@ public class Question {
             this.name = name;
         }
 
-        public String getName() {
-            return name;
-        }
-
         public static Category getCategory(String name) {
-            for(Category c:values()) {
-                if(c.getName().equals(name))
+            for (Category c : values()) {
+                if (c.getName().equals(name))
                     return c;
             }
             return null;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }

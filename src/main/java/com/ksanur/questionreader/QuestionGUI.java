@@ -1,13 +1,8 @@
 package com.ksanur.questionreader;
 
-import org.json.JSONObject;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Created by Sundara on 1/19/15.
